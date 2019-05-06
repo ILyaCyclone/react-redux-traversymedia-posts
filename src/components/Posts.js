@@ -8,12 +8,13 @@ export class Posts extends Component {
     this.props.fetchPosts();
   }
 
-  componentWillReceiveProps(nextProps) {
-      if(nextProps.newPost) {
-        // add new post to beginning of posts array
-        this.props.posts.unshift(nextProps.newPost);
-      }
-  }
+  // this code is moved to postReducer NEW_POST
+  // componentWillReceiveProps(nextProps) {
+  //     if(nextProps.lastAddedItem) {
+  //       // add new post to beginning of posts array
+  //       this.props.posts.unshift(nextProps.newPost);
+  //     }
+  // }
 
   render() {
       const postItems = this.props.posts.map(post =>
@@ -35,15 +36,15 @@ export class Posts extends Component {
 
 
 const mapStateToProps = state => ({
-  posts: state.posts.items,
-  newPost: state.posts.item
+  posts: state.posts.items // state.posts is a reducer defined in reducers/root.js
+  // , lastAddedItem: state.posts.lastAddedItem
 })
 
 
 Posts.propTypes = {
   fetchPosts: PropTypes.func.isRequired,
-  posts: PropTypes.array.isRequired,
-  newPost: PropTypes.object.isRequired
+  posts: PropTypes.array.isRequired
+  // , lastAddedItem: PropTypes.object.isRequired
 }
 
 export default connect(mapStateToProps, {fetchPosts})(Posts);

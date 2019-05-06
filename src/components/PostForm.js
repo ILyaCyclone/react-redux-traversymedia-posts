@@ -23,7 +23,7 @@ export class PostForm extends Component {
 
         this.props.createPost(newPost);
 
-        // this.setState({title: "", body: ""});
+        this.setState({title: "", body: ""});
     }
     
   render() {

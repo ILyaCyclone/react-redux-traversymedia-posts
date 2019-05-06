@@ -2,7 +2,7 @@ import { FETCH_POSTS, NEW_POST } from '../actions/types';
 
 const initialState = {
     items: [],
-    item: {}
+    lastAddedItem: {}
 }
 
 export default function(state = initialState, action) {
@@ -14,9 +14,11 @@ export default function(state = initialState, action) {
             }
 
         case NEW_POST:
+            const createdPost = action.payload;
             return {
                 ...state,
-                item: action.payload
+                items: [createdPost, ...state.items], // add createdPost to posts
+                lastAddedItem: createdPost
             }
         default:
             return state;
