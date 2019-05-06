@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 
 export class PostForm extends Component {
     state = {
@@ -10,12 +11,26 @@ export class PostForm extends Component {
     onFormInputChange = (e) => this.setState({[e.target.name]: e.target.value});
 
     
+    onFormSubmit = (e) => {
+        e.preventDefault();
+
+        const newPost = {
+            title: this.state.title,
+            body: this.state.body
+        }
+        
+        axios.post("http://jsonplaceholder.typicode.com/posts", newPost)
+            .then(res => console.log(res.data));
+
+        this.setState({title: "", body: ""});
+    }
+    
   render() {
 
     return (
       <div>
           <h1>Add Post</h1>
-          <form>
+          <form onSubmit={this.onFormSubmit}>
             <div>
                 <label htmlFor="title">Title: </label>
                 <input type="text" name="title" value={this.state.title}
