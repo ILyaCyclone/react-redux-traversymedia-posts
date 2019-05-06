@@ -12,7 +12,12 @@ export default function(state = initialState, action) {
                 ...state,
                 items: action.payload
             }
-            break;
+
+        case NEW_POST:
+            return {
+                ...state,
+                item: action.payload
+            }
         default:
             return state;
     }
